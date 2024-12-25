@@ -4,10 +4,7 @@ history:
 20/1106 suffix every line with shortened hostname
 23/0827 github.com/shirou/gopsutil/v3
 
-go mod init github.com/shoce/uss
-go get -a -u -v
-go mod tidy
-
+GoGet
 GoFmt
 GoBuildNull
 GoBuild
@@ -48,9 +45,8 @@ var (
 func tsnow() string {
 	t := time.Now().Local()
 	ts := fmt.Sprintf(
-		"%03d."+"%02d%02d."+"%02d"+"%02d.",
-		t.Year()%1000, t.Month(), t.Day(),
-		t.Hour(), t.Minute(),
+		"%03d:"+"%02d%02d:"+"%02d%02d",
+		t.Year()%1000, t.Month(), t.Day(), t.Hour(), t.Minute(),
 	)
 	return ts
 }
