@@ -9,15 +9,18 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      # https://github.com/actions/checkout/
+      - uses: actions/checkout@v4
       - name: version
         run: |
-          VERSION=$( date '+%y%m%d.%H%M.0' )
+          VERSION=$( date '+%y.%m%d.%H%M' )
           echo "VERSION:$VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-      - uses: actions/setup-go@v4
+      # https://github.com/actions/setup-go/
+      - uses: actions/setup-go@v5
         with:
-          go-version: '^1.23.0'
+          # https://go.dev/dl/
+          go-version: '^1.23.4'
       - name: go build
         run: GOOS=linux GOARCH=amd64 go build -o ${{ github.event.repository.name }}.linux.amd64 -trimpath -ldflags '-X main.Version='$VERSION
       - name: gzip
